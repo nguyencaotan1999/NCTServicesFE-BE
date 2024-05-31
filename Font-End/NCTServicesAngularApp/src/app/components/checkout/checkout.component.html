@@ -1,0 +1,163 @@
+<!--PreLoader-->
+<div class="loader">
+  <div class="loader-inner">
+    <div class="circle"></div>
+  </div>
+</div>
+<!--PreLoader Ends-->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-center">
+        <div class="breadcrumb-text">
+          <p>Fresh and Organic</p>
+          <h1>Check Out Product</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- check out section -->
+<div class="checkout-section mt-150 mb-150">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="checkout-accordion-wrap">
+          <div class="accordion" id="accordionExample">
+            <div class="card single-accordion">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    Địa chỉ thanh toán
+                  </button>
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordionExample"
+              >
+                <div class="card-body">
+                  <div class="billing-address-form">
+                    <form action="index.html">
+                      <p><input type="text" placeholder="Họ và Tên" /></p>
+                      <p><input type="email" placeholder="Email" /></p>
+                      <p><input type="text" placeholder="Địa chỉ" /></p>
+                      <p><input type="tel" placeholder="Phone" /></p>
+                      <p>
+                        <textarea
+                          name="bill"
+                          id="bill"
+                          cols="30"
+                          rows="10"
+                          placeholder="Ghi Chú"
+                        ></textarea>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card single-accordion">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    Địa chỉ giao hàng
+                  </button>
+                </h5>
+              </div>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordionExample"
+              >
+                <div class="card-body">
+                  <div class="shipping-address-form">
+                    <p>Your shipping address form is here.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="order-details-wrap text-center">
+          <table
+            id="tableCheckout"
+            class="order-details"
+            style="width: 100%; text-align: center"
+          >
+            <thead>
+              <tr>
+                <th class="col-6">Sản Phẩm</th>
+                <th class="col-2">Số Lượng</th>
+                <th class="col-4">Tổng</th>
+              </tr>
+            </thead>
+            <tbody class="order-details-body">
+              <tr>
+                <td>Strawberry</td>
+                <td>1</td>
+                <td>85,000 VNĐ</td>
+              </tr>
+              <tr>
+                <td>Berry</td>
+                <td>1</td>
+                <td>70,000 VNĐ</td>
+              </tr>
+              <tr>
+                <td>Lemon</td>
+                <td>1</td>
+                <td>35,000 VNĐ</td>
+              </tr>
+            </tbody>
+            <tbody class="checkout-details">
+              <tr class="bg-warning bg-gradient">
+                <td class="fw-bold">Tạm Tính</td>
+                <td></td>
+                <td id="SubtotalCheckout">0,000 VNĐ</td>
+              </tr>
+              <tr class="bg-success bg-gradient">
+                <td class="fw-bold">Phí Vận Chuyển</td>
+                <td></td>
+                <td id="ShippingCheckout">30,000 VNĐ</td>
+              </tr>
+              <tr class="bg-info bg-gradient">
+                <td class="fw-bold">Tổng Tiền</td>
+                <td></td>
+                <td id="totalCheckout">0,000 VNĐ</td>
+              </tr>
+            </tbody>
+          </table>
+          <a id="IdOrder" href="javascript:void(0)" class="boxed-btn"
+            >Đặt Hàng</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end check out section -->
