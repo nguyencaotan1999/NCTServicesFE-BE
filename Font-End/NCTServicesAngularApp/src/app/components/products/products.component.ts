@@ -16,8 +16,13 @@ export class ProductsComponent implements OnInit {
   products: any[] = [];
   cartItems: any[] = [];
   loading: boolean = false;
+  currentPage: number = 1;
+  totalPages: number = 3;
+  pageArray: number[] = [];
 
-  constructor(private http: HttpClient,private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
+    this.reload();
+   }
   
   ngOnInit(): void {
     this.GetProducts(0);
@@ -26,6 +31,29 @@ export class ProductsComponent implements OnInit {
   ngAfterViewInit() { 
     
 
+  }
+  reload() { 
+    this.pageArray = new Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+  isCurrentPage(page: number): boolean {
+    return page === this.currentPage;
+  }
+  onPageClick(page: number): void {
+    this.currentPage = page;
+  }
+  
+
+  goToPage(page: number): void { 
+    if (page === -1 && this.currentPage > 1) {
+      this.currentPage--;
+    } else if (page === 1 && this.currentPage <= this.totalPages) {
+      this.currentPage++;
+    }
+    if (this.currentPage > this.totalPages) { 
+      this.totalPages++;
+      this.reload();
+    }
+    console.log("Array", this.pageArray);
   }
 
   AddToCart(product: any) { 
