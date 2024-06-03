@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
   cartItems: any[] = [];
   loading: boolean = false;
   currentPage: number = 1;
-  totalPages: number = 3;
+  totalPages: number = 5;
   pageArray: number[] = [];
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
@@ -38,9 +38,6 @@ export class ProductsComponent implements OnInit {
   isCurrentPage(page: number): boolean {
     return page === this.currentPage;
   }
-  onPageClick(page: number): void {
-    this.currentPage = page;
-  }
   
 
   goToPage(page: number): void { 
@@ -53,13 +50,20 @@ export class ProductsComponent implements OnInit {
       this.totalPages++;
       this.reload();
     }
-    console.log("Array", this.pageArray);
+    this.renderProducts(this.currentPage);
   }
 
   AddToCart(product: any) { 
     this.cartItems.push(product);
     console.log("Sản Phẩm:", this.cartItems);
     this.cartItems = [];
+  }
+  renderProducts(value: number) { 
+    let skipProduct = 0;
+    if (value != 0) {
+      skipProduct = (value-1) * 8;
+    } 
+    this.GetProducts(skipProduct);
   }
 
   GetProducts(value: number) { 

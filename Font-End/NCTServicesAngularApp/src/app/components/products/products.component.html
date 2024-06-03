@@ -82,13 +82,13 @@
     }@else {
     <div class="row">
       <div class="row">
-        <div class="text-center">
-          <h1>Không tìm thấy sản phẩm</h1>
+        <div class="col-lg-8 offset-lg-2 text-center">
+          <div style="text-align: center" class="breadcrumb-text">
+            <p style="font-size: 30px">Không tìm thấy sản phẩm!</p>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <img src="assets/img/products/Pic-Notfound.jpg" alt="" />
-      </div>
+      <div class="row" style="width: 100px; height: 100px"></div>
     </div>
     } }
 
@@ -100,7 +100,7 @@
             <li *ngFor="let page of pageArray">
               <a
                 [class.active]="isCurrentPage(page)"
-                (click)="currentPage = page"
+                (click)="currentPage = page; renderProducts(page)"
                 >{{ page }}</a
               >
             </li>
