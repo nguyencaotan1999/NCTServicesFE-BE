@@ -9,14 +9,15 @@ import { ContactComponent } from './components/contact/contact.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataServices } from './components/Common/Common.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HeaderComponent, FooterComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule]
+    imports: [RouterOutlet, HeaderComponent, FooterComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule,DataServices]
 })
 export class AppComponent {
   title = 'Duy Trường Paint';

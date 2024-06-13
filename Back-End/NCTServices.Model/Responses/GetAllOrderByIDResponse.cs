@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NCTServices.Domain.Entity;
+using System.ComponentModel.DataAnnotations;
 
-namespace NCTServices.Model.Requests
+namespace NCTServices.Model.Responses
 {
-    public class OrderDetailRequest
+    public class GetAllOrderByIDResponse
     {
         public int? UserId { get; set; }
         public int? OrderDetailId { get; set; }
@@ -20,6 +17,7 @@ namespace NCTServices.Model.Requests
         public int Quantity { get; set; }
         public decimal? UnitPrice { get; set; }
         public string? ProductName { get; set; }
-        public double ProductPrice { get; set; }
+        public double ProductPrice { get; set; } 
+
     }
 }

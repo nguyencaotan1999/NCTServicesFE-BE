@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NCTServices.Application.Common.Services.Order.Queries;
 using NCTServices.Application.Common.Services.OrderDetail.Commands;
 using NCTServices.Application.Common.Services.OrderDetail.Queries;
+using NCTServices.Domain.Entity;
 using NCTServices.Model.Requests;
 using System.ComponentModel;
 
@@ -18,26 +20,26 @@ namespace NCTServices.API.Common.Controllers
                 var listProducts = await _mediator.Send(new GetOrderDetailById(UserId));
                 return Ok(listProducts);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
 
             }
 
         }
 
         [HttpPost]
-        [Route("AddOrUpdateOrderDetail")]
-        public async Task<IActionResult> AddOrUpdateOrderDetail(OrderDetailRequest OrderDetail)
+        [Route("UpdateOrderDetail")]
+        public async Task<IActionResult> AddOrUpdateOrderDetail(List<OrderDetailRequest> OrderDetail)
         {
             try
             {
-                var listProducts = await _mediator.Send(new AddOrUpdateOrderDetailCommands(OrderDetail));
+                var listProducts = await _mediator.Send(new UpdateOrderDetailCommands(OrderDetail));
                 return Ok(listProducts);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
 
             }
 
@@ -52,12 +54,26 @@ namespace NCTServices.API.Common.Controllers
                 var listProducts = await _mediator.Send(new DeleteOrderDetailCommands(OrderDetailId));
                 return Ok(listProducts);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
 
             }
 
+        }
+        [HttpGet]
+        [Route("Order")]
+        public async Task<IActionResult> GetAllOrderByUserId(int id)
+        {
+            try
+            {
+                var listorders = await _mediator.Send(new GetAllOrder(id));
+                return Ok(listorders.Data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

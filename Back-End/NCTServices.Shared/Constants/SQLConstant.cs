@@ -49,13 +49,9 @@ namespace NCTServices.Shared.Constants
                                                         WHERE
                                                             O.UserId = @RowId";
         public const string Update_ORDERDETAIL = @" UPDATE OrderDetail
-                                                    SET Quantity = @Quantity,
-	                                                    UnitPrice = @UnitPrice,
-	                                                    Subtotal = @Subtotal,
-	                                                    ModifiedDate = @ModifiedDate,
-	                                                    ModifiedBy = @ModifiedBy
+                                                    SET Quantity = @Quantity
                                                     WHERE 
-	                                                    RowId = @RowId";
+	                                                    RowId = @OrderDetailId";
         public const string ADD_ORDERDETAIL = @"INSERT INTO OrderDetail (OrderId,ProductId,Quantity,UnitPrice,Subtotal,ModifiedDate,ModifiedBy,CreatedDate,CreatedBy)
                                                 VALUES (@OrderId,@ProductId,@Quantity,@UnitPrice,@Subtotal,@ModifiedDate,@ModifiedBy,@CreatedDate,@CreatedBy)";
         public const string DELETE_ORDERDETAIL_BY_ID = @"DELETE FROM OrderDetail
@@ -65,6 +61,23 @@ namespace NCTServices.Shared.Constants
         #region Order
         public const string ADD_ORDER = @"INSERT INTO [Order] (UserId,OrderDate,Status,TotalAmount,ModifiedDate,ModifiedBy,CreatedDate,CreatedBy)
                                                 VALUES (@UserId,@OrderDate,@Status,@TotalAmount,@ModifiedDate,@ModifiedBy,@CreatedDate,@CreatedBy)";
+        public const string GET_ALL_ORDER_BY_USER = @"SELECT    OD.RowId AS OrderDetailId,
+                                                                P.ProductName AS ProductName,
+	                                                            P.ProductPrice AS ProductPrice,
+		                                                        OD.Quantity AS Quantity,
+	                                                            O.Status AS STATUS,
+	                                                            O.OrderDate AS OrderDate,
+	                                                            U.UserName AS UserName,
+	                                                            OD.UnitPrice AS UnitPrice,
+		                                                        O.UserId AS UserId,
+		                                                        OD.RowId AS OrderDetailId,
+		                                                        U.Address AS Address,
+		                                                        U.PhoneNumber AS PhoneNumber
+                                                        FROM [Order] O
+                                                        INNER JOIN [User] U ON U.RowId = O.UserId
+                                                        INNER JOIN [OrderDetail] OD ON OD.OrderId = O.RowId
+                                                        INNER JOIN [Product] P ON OD.ProductId = P.RowId
+                                                        WHERE O.UserId = UserId";
         #endregion
 
     }

@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit,ChangeDetectorRef, viewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { DataServices } from '../Common/Common.component';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   totalPages: number = 5;
   pageArray: number[] = [];
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
+  constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) {
     this.reload();
    }
   
@@ -28,10 +28,6 @@ export class ProductsComponent implements OnInit {
     this.GetProducts(0);
   }
   
-  ngAfterViewInit() { 
-    
-
-  }
   reload() { 
     this.pageArray = new Array(this.totalPages).fill(0).map((x, i) => i + 1);
   }
@@ -67,25 +63,32 @@ export class ProductsComponent implements OnInit {
   }
 
   GetProducts(value: number) { 
+
     this.loading = true;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
     const apiUrl = 'https://localhost:7071/api/v1/Product?skip=' + value;
 
-    this.http.get<any[]>(apiUrl, httpOptions).subscribe(
-      (data: any[]) => {
-        this.products = data;
-        console.log("data", this.products);
-        this.cdr.detectChanges(); 
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-    }
-    );
+    this.dataServices.getData(`${apiUrl}`).subscribe(
+        (data: any[]) => {
+          this.products = data;
+          console.log("data", this.products);
+          this.cdr.detectChanges(); 
+          this.loading = false;
+        },
+        (error) => {
+          this.loading = false;
+      }
+      );
+    // this.http.get<any[]>(apiUrl, httpOptions).subscribe(
+    //   (data: any[]) => {
+    //     this.products = data;
+    //     console.log("data", this.products);
+    //     this.cdr.detectChanges(); 
+    //     this.loading = false;
+    //   },
+    //   (error) => {
+    //     this.loading = false;
+    // }
+    // );
   }
   
 }

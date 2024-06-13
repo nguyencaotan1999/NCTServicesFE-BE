@@ -12,8 +12,8 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 text-center">
         <div class="breadcrumb-text">
-          <p>Fresh and Organic</p>
-          <h1>Cart</h1>
+          <p style="font-size: 25px">Fresh and Organic</p>
+          <h1 style="font-size: 100px">Cart</h1>
         </div>
       </div>
     </div>
@@ -22,59 +22,65 @@
 <!-- end breadcrumb section -->
 
 <!-- cart -->
-<div class="cart-section mt-150 mb-150">
+<div class="cart-section mt-100 mb-150">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12">
-        <div class="cart-table-wrap">
+        <div class="cart-table-wrap table-responsive" style="height: 400px">
           <table id="cartTable" class="cart-table">
             <thead class="cart-table-head">
               <tr class="table-head-row">
-                <th class="product-remove">Action</th>
-                <th class="product-image">Ảnh Sản Phẩm</th>
-                <th class="product-name">Tên Sản Phẩm</th>
-                <th class="product-price">Giá</th>
-                <th class="product-quantity">Số Lượng</th>
+                <th class="product-stt">STT</th>
+                <th class="product-remove">Ảnh Sản Phẩm</th>
+                <th class="product-image">Tên Sản Phẩm</th>
+                <th class="product-name">Giá</th>
+                <th class="product-price">Số Lượng</th>
+                <th class="product-quantity">Action</th>
               </tr>
             </thead>
             <tbody class="Card-order-body">
-              <tr class="table-body-row">
-                <td class="product-remove">
-                  <a href="#"><i class="far fa-window-close"></i></a>
+              <tr
+                class="table-body-row"
+                *ngFor="let product of ArrayListCart; let i = index"
+                #tableCart
+              >
+                <td class="product-stt">
+                  <p>{{ i + 1 }}</p>
                 </td>
+
                 <td class="product-image">
-                  <img src="assets/img/products/product-img-1.jpg" alt="" />
+                  <img
+                    src="assets/img/products/product-img-{{ i + 1 }}.jpg"
+                    alt=""
+                  />
                 </td>
-                <td class="product-name">Strawberry</td>
-                <td class="product-price">85,000VNĐ</td>
+                <td class="product-name">{{ product.productName }}</td>
+                <td class="product-price">
+                  {{
+                    product.productPrice | currency : "VND" : "symbol-narrow"
+                  }}
+                </td>
                 <td class="product-quantity">
-                  <input type="number" value="0" placeholder="0" min="0" />
+                  <input
+                    class="text-center"
+                    type="number"
+                    value="{{ product.quantity }}"
+                    placeholder="0"
+                    min="0"
+                    (change)="changeValueInTable($event, product, i)"
+                  />
                 </td>
-              </tr>
-              <tr class="table-body-row">
+
                 <td class="product-remove">
-                  <a href="#"><i class="far fa-window-close"></i></a>
-                </td>
-                <td class="product-image">
-                  <img src="assets/img/products/product-img-2.jpg" alt="" />
-                </td>
-                <td class="product-name">Berry</td>
-                <td class="product-price">70,000VNĐ</td>
-                <td class="product-quantity">
-                  <input type="number" value="0" placeholder="0" min="0" />
-                </td>
-              </tr>
-              <tr class="table-body-row">
-                <td class="product-remove">
-                  <a href="#"><i class="far fa-window-close"></i></a>
-                </td>
-                <td class="product-image">
-                  <img src="assets/img/products/product-img-3.jpg" alt="" />
-                </td>
-                <td class="product-name">Lemon</td>
-                <td class="product-price">35,000VNĐ</td>
-                <td class="product-quantity">
-                  <input type="number" value="0" placeholder="0" min="0" />
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#DeletePopUp"
+                    (click)="DeleteOrderDetailFunction($event, product)"
+                  >
+                    Xóa
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -94,21 +100,27 @@
             <tbody>
               <tr class="total-data bg-warning bg-gradient">
                 <td><strong>Tạm Tính: </strong></td>
-                <td id="IdSubtotal">0,000 VNĐ</td>
+                <td>
+                  {{ subtotal | currency : "VND" : "symbol-narrow" }}
+                </td>
               </tr>
               <tr class="total-data bg-success bg-gradient">
                 <td><strong>Phí Vận Chuyển: </strong></td>
-                <td id="IDShipping">45,000 VNĐ</td>
+                <td id="IDShipping">
+                  {{ feeShipping | currency : "VND" : "symbol-narrow" }}
+                </td>
               </tr>
               <tr class="total-data bg-info bg-gradient">
                 <td><strong>Tổng cộng: </strong></td>
-                <td id="TotalCart">0,000 VNĐ</td>
+                <td id="TotalCart">
+                  {{ Total | currency : "VND" : "symbol-narrow" }}
+                </td>
               </tr>
             </tbody>
           </table>
           <div class="cart-buttons">
-            <a href="cart.html" class="boxed-btn">Update Cart</a>
-            <a href="checkout.html" class="boxed-btn black">Check Out</a>
+            <a class="boxed-btn" (click)="SubmitCart()"> Cập nhật giỏ hàng </a>
+            <a href="/checkout" class="boxed-btn black">Check Out</a>
           </div>
         </div>
       </div>
@@ -116,3 +128,46 @@
   </div>
 </div>
 <!-- end cart -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="DeletePopUp"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-150" style="height: 100%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa Đơn Hàng</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xóa
+        <span class="fw-bold text-decoration-underline">{{
+          DeleteorderDetailName
+        }}</span>
+        khỏi giỏ hàng không?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Đóng
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="this.SubmitDelete()"
+        >
+          Xóa đơn hàng
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

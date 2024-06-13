@@ -37,7 +37,7 @@ namespace NCTServices.Application.Common.Services.OrderDetail.Commands
                 {
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("RowId", request.OrderId);
-                    await _sqlDbConnection.QueryAsync<OrderDetails>(SQLConstant.DELETE_ORDERDETAIL_BY_ID, CommandType.Text, parameters);
+                    await _sqlDbConnection.QueryFirstOrDefaultAsync<bool>(SQLConstant.DELETE_ORDERDETAIL_BY_ID, CommandType.Text, parameters);
                     return await Result<bool>.SuccessAsync(true);
                 }
                 else
