@@ -118,9 +118,20 @@
               </tr>
             </tbody>
           </table>
-          <div class="cart-buttons">
-            <a class="boxed-btn" (click)="SubmitCart()"> Cập nhật giỏ hàng </a>
-            <a href="/checkout" class="boxed-btn black">Check Out</a>
+          <div class="row mt-lg-5 ml-5">
+            <div class="col-6">
+              <a
+                id="liveToastBtn"
+                type="button"
+                class="boxed-btn black"
+                (click)="SubmitCart()"
+              >
+                Cập nhật giỏ hàng
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="/checkout" class="boxed-btn black">Check Out</a>
+            </div>
           </div>
         </div>
       </div>
@@ -160,6 +171,7 @@
           Đóng
         </button>
         <button
+          id="liveToastBtn"
           type="button"
           class="btn btn-primary"
           data-bs-dismiss="modal"

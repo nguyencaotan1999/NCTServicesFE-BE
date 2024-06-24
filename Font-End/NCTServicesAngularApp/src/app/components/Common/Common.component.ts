@@ -6,6 +6,8 @@ import { Observable,of  } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +19,7 @@ import { catchError, map } from 'rxjs/operators';
     styleUrl: './Common.component.css'
 })
 export class DataServices   { 
+
     constructor(private http: HttpClient) {}
     
      getData(apiUrl: string): Observable<any[]> {
@@ -27,6 +30,7 @@ export class DataServices   {
       };
         return this.http.get<any[]>(apiUrl, httpOptions);
   }
+
   
   postData(apiUrl: string, data: any): Observable<boolean> {
     const httpOptions = {
@@ -72,5 +76,6 @@ export class DataServices   {
       })
     );
   }
+
 
 }

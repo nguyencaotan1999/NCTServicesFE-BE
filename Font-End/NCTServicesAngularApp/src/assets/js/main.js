@@ -150,6 +150,15 @@
       },
     });
 
+    $("#liveToastBtn").on("click", function () {
+      $("#liveToast").toast("show");
+
+      // Tự đóng toast sau 4 giây
+      setTimeout(function () {
+        $("#liveToast").toast("hide");
+      }, 3500);
+    });
+
     // homepage slides animations
     $(".homepage-slider").on("translate.owl.carousel", function () {
       $(".hero-text-tablecell .subtitle")

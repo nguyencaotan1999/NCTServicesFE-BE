@@ -1,16 +1,19 @@
-import { ChangeDetectorRef, Component, OnInit,ViewChildren,QueryList,AfterViewInit,ElementRef,Directive } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit,ViewChildren,QueryList,AfterViewInit,ElementRef,Renderer2 } from '@angular/core';
 import { DataServices } from '../Common/Common.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { ToastMessageComponent } from '../../services/toast/toast-message/toast-message.component';
+
+
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, DataServices ],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrl: './cart.component.css',
+  providers: [ToastMessageComponent]
 })
   
 export class CartComponent implements OnInit, AfterViewInit {
@@ -25,7 +28,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   DeleteorderDetailName: string = '';
   OrderDetailId: number = 0;
 
-  constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) { 
+  constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef,private toast:ToastMessageComponent ) { 
     
   }
   ngOnInit(): void {
@@ -33,24 +36,24 @@ export class CartComponent implements OnInit, AfterViewInit {
     
   }
   ngAfterViewInit(): void {
-   
   }
-
+ 
   SubmitCart() { 
     const UrlAPI = 'https://localhost:7071/api/v1/UpdateOrderDetail';
     this.dataServices.postData(UrlAPI, this.ArrayListCart).subscribe(
       (data: any) => {
         if (data) {
           this.renderCart();
-
+          // this.Message = 'Cập Nhật Thành Công';
+          this.toast.showSuccess('Cập Nhật Thành Công');
         } else { 
-          alert("Cập Nhật Thất Bại");
-
+          // this.Message = 'Cập Nhật Thất Bại';
+          this.toast.showError('Cập Nhật Thất Bại');
         }
       },
       (error) => {
-        alert("Cập Nhật Thất Bại");
-
+        // this.Message = 'Cập Nhật Thất Bại';
+        this.toast.showError('Cập Nhật Thất Bại');
     }
     );
   }
@@ -78,20 +81,19 @@ export class CartComponent implements OnInit, AfterViewInit {
       (data: boolean) => {
         if (data) {
           this.renderCart();
-
+          //  this.Message = 'Xóa Cập Nhật';
+          this.toast.showSuccess('Xóa thành công');
         } else { 
-          alert("Xóa Thất Bại");
-
-
+          // this.Message = 'Xóa Thất Bại';
+          this.toast.showError('Xóa Thất Bại');
         }
       },
       (error) => {
-        alert("Xóa Thất Bại");
-
+        // this.Message = 'Xóa Thất Bại';
+        this.toast.showError('Xóa Thất Bại');
     }
     );
     }
-
   }
 
 

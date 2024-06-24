@@ -16,5 +16,6 @@ export const routes: Routes = [
     { path: 'products',component: ProductsComponent},
     { path: 'cart', component: CartComponent},
     { path: 'errorpage', component: ErrorPageComponent },
-    { path: 'checkout',component:CheckoutComponent}
+    { path: 'checkout', component: CheckoutComponent },
+
 ];
