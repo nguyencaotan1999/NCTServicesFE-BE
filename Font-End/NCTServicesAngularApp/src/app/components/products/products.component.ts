@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DataServices } from '../Common/Common.component';
 
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -17,7 +18,7 @@ export class ProductsComponent implements OnInit {
   cartItems: any[] = [];
   loading: boolean = false;
   currentPage: number = 1;
-  totalPages: number = 5;
+  totalPages: number = 3;
   pageArray: number[] = [];
 
   constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) {

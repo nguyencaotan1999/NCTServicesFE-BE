@@ -27,6 +27,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   subtotal: number = 0;
   DeleteorderDetailName: string = '';
   OrderDetailId: number = 0;
+  IsLoading: boolean = true;
 
   constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef,private toast:ToastMessageComponent ) { 
     
@@ -46,6 +47,7 @@ export class CartComponent implements OnInit, AfterViewInit {
           this.renderCart();
           // this.Message = 'Cập Nhật Thành Công';
           this.toast.showSuccess('Cập Nhật Thành Công');
+         
         } else { 
           // this.Message = 'Cập Nhật Thất Bại';
           this.toast.showError('Cập Nhật Thất Bại');
@@ -64,7 +66,7 @@ export class CartComponent implements OnInit, AfterViewInit {
     const updatedProduct = { ...product, quantity: newValue };
     this.ArrayListCart[index] = updatedProduct;
     this.calculateTotalPrice(this.ArrayListCart);
-    this.ArrayListCartChange.push(updatedProduct);
+    this.ArrayListCartChange = this.ArrayListCart;
   }
 
   DeleteOrderDetailFunction(event: any, product: any) { 
@@ -112,17 +114,18 @@ export class CartComponent implements OnInit, AfterViewInit {
 
 
   renderCart() { 
-    
+    this.IsLoading = true;
     const apiUrl = 'https://localhost:7071/api/v1/Order?id=2';
 
     this.dataServices.getData(`${apiUrl}`).subscribe(
-        (data: any[]) => {
-        this.ArrayListCart = data;
-        this.calculateTotalPrice(this.ArrayListCart);
-        this.cdr.detectChanges(); 
+      (data: any[]) => {
+          this.ArrayListCart = data;
+          this.calculateTotalPrice(this.ArrayListCart);
+          this.cdr.detectChanges(); 
+          this.IsLoading = false;
         },
         (error) => {
       }
-      );
+    );
   }
 }

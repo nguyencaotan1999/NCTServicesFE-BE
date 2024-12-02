@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NCTServices.Application.Common.Services.CheckOut.Queries;
 using NCTServices.Application.Common.Services.Order.Queries;
 using NCTServices.Application.Common.Services.OrderDetail.Commands;
 using NCTServices.Application.Common.Services.OrderDetail.Queries;
@@ -73,6 +74,21 @@ namespace NCTServices.API.Common.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("Checkout")]
+        public async Task<IActionResult> GetCheckoutPayment(int? id)
+        {
+            try
+            {
+                var ListofCheckoutPayment = await _mediator.Send(new GetCheckoutForPayment(id));
+                return Ok(ListofCheckoutPayment.Data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message}");
             }
         }
     }

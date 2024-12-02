@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\CheckOut\Command\" />
     <Folder Include="Services\Order\Commands\" />
   </ItemGroup>
 

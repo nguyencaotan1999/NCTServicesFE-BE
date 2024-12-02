@@ -27,6 +27,32 @@
     <div class="row">
       <div class="col-lg-8 col-md-12">
         <div class="cart-table-wrap table-responsive" style="height: 400px">
+          @if (IsLoading) {
+          <div class="container mt-100 text-center">
+            <div
+              class="spinner-grow"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading... </span>
+            </div>
+            <div
+              class="spinner-grow"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading... </span>
+            </div>
+            <div
+              class="spinner-grow"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading... </span>
+            </div>
+          </div>
+          }@else {
+
           <table id="cartTable" class="cart-table">
             <thead class="cart-table-head">
               <tr class="table-head-row">
@@ -85,6 +111,7 @@
               </tr>
             </tbody>
           </table>
+          }
         </div>
       </div>
 

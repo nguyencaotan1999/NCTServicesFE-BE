@@ -78,6 +78,27 @@ namespace NCTServices.Shared.Constants
                                                         INNER JOIN [OrderDetail] OD ON OD.OrderId = O.RowId
                                                         INNER JOIN [Product] P ON OD.ProductId = P.RowId
                                                         WHERE O.UserId = UserId";
+        public const string Get_Checkout_ForPayment = @"SELECT ProductName,ProductPrice, Quantity
+                                                         FROM [OrderDetail] DT
+                                                         INNER JOIN [Product] P ON DT.ProductId = P.RowId
+                                                         INNER JOIN [Order] O ON DT.OrderId = O.RowId
+                                                         WHERE O.UserId = @UserId
+                                                        ";
+        #endregion
+
+        #region User
+        public const string Get_User = @"SELECT RowId ,
+                                        UserName as UserName,
+                                        UserPassword as Password,
+                                        UserRole as UserRole, 
+                                        UserEmail as UserEmail,
+                                        Address as Address,
+                                        PhoneNumber as  UserPhone
+                                          FROM [DTPaint].[dbo].[User]
+                                          Where UserEmail = @email";
+
+        public const string Register_Account = @"INSERT INTO [User] (UserName,UserEmail,UserPassword,CreatedDate,ModifiedDate)
+                                                VALUES(@name,@email,@password,@CreatedDate,@ModifiedDate)";
         #endregion
 
     }

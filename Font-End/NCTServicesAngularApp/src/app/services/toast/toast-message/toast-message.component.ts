@@ -14,9 +14,9 @@ export class ToastMessageComponent {
   }
   
   showSuccess(message:any) { 
-    this.toastr.success(message,'',{closeButton:true,positionClass:'toast-top-right'});
+    this.toastr.success(message);
   }
   showError(message:any) { 
-    this.toastr.error(message,'',{closeButton:true,positionClass:'toast-top-right'});
+    this.toastr.error(message);
   }
 }

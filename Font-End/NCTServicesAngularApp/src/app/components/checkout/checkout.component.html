@@ -107,48 +107,51 @@
         <div class="order-details-wrap text-center">
           <table
             id="tableCheckout"
-            class="order-details"
+            class="order-details border border-1"
             style="width: 100%; text-align: center"
           >
             <thead>
               <tr>
-                <th class="col-6">Sản Phẩm</th>
-                <th class="col-2">Số Lượng</th>
-                <th class="col-4">Tổng</th>
+                <th class="col-6 border border-2">Sản Phẩm</th>
+                <th class="col-2 border border-2">Số Lượng</th>
+                <th class="col-4 border border-2">Tổng</th>
               </tr>
             </thead>
             <tbody class="order-details-body">
-              <tr>
-                <td>Strawberry</td>
-                <td>1</td>
-                <td>85,000 VNĐ</td>
+              @if (ProductList && ProductList.length > 0) {
+              <tr *ngFor="let product of ProductList">
+                <td>{{ product.productName }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.productPrice }} VNĐ</td>
               </tr>
+              }@else {
               <tr>
-                <td>Berry</td>
-                <td>1</td>
-                <td>70,000 VNĐ</td>
+                <td
+                  class="text-center fw-bold"
+                  style="height: 180px"
+                  colspan="3"
+                >
+                  KHÔNG TỒN TẠI SẢN PHẨM
+                </td>
               </tr>
-              <tr>
-                <td>Lemon</td>
-                <td>1</td>
-                <td>35,000 VNĐ</td>
-              </tr>
+              }
             </tbody>
             <tbody class="checkout-details">
               <tr class="bg-warning bg-gradient">
-                <td class="fw-bold">Tạm Tính</td>
-                <td></td>
-                <td id="SubtotalCheckout">0,000 VNĐ</td>
+                <td class="fw-bold" colspan="2">Tạm Tính</td>
+                <td>
+                  {{ this.Calculate | currency : "VND" : "symbol-narrow" }}
+                </td>
               </tr>
               <tr class="bg-success bg-gradient">
-                <td class="fw-bold">Phí Vận Chuyển</td>
-                <td></td>
-                <td id="ShippingCheckout">30,000 VNĐ</td>
+                <td class="fw-bold" colspan="2">Phí Vận Chuyển</td>
+                <td>
+                  {{ this.FeeShipping | currency : "VND" : "symbol-narrow" }}
+                </td>
               </tr>
               <tr class="bg-info bg-gradient">
-                <td class="fw-bold">Tổng Tiền</td>
-                <td></td>
-                <td id="totalCheckout">0,000 VNĐ</td>
+                <td class="fw-bold" colspan="2">Tổng Tiền</td>
+                <td>{{ this.total | currency : "VND" : "symbol-narrow" }}</td>
               </tr>
             </tbody>
           </table>
