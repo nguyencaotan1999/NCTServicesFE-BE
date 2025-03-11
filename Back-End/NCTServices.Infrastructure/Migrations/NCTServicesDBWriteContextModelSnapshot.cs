@@ -55,6 +55,47 @@ namespace NCTServices.Infrastructure.Migrations
                     b.ToTable("Categorie", (string)null);
                 });
 
+            modelBuilder.Entity("NCTServices.Domain.Entity.Inventory", b =>
+                {
+                    b.Property<int>("RowId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RowId"), 1L, 1);
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionType")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("RowId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Inventory", (string)null);
+                });
+
             modelBuilder.Entity("NCTServices.Domain.Entity.OrderDetails", b =>
                 {
                     b.Property<int>("RowId")
@@ -122,6 +163,9 @@ namespace NCTServices.Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,6 +182,41 @@ namespace NCTServices.Infrastructure.Migrations
                     b.ToTable("Order", (string)null);
                 });
 
+            modelBuilder.Entity("NCTServices.Domain.Entity.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"), 1L, 1);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Payment");
+                });
+
             modelBuilder.Entity("NCTServices.Domain.Entity.Products", b =>
                 {
                     b.Property<int>("RowId")
@@ -146,8 +225,14 @@ namespace NCTServices.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RowId"), 1L, 1);
 
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -155,25 +240,31 @@ namespace NCTServices.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ProductDescription")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("ProductPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("QuantityInStock")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Volume")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("RowId");
 
@@ -231,6 +322,18 @@ namespace NCTServices.Infrastructure.Migrations
                     b.ToTable("User", (string)null);
                 });
 
+            modelBuilder.Entity("NCTServices.Domain.Entity.Inventory", b =>
+                {
+                    b.HasOne("NCTServices.Domain.Entity.Products", "Products")
+                        .WithMany("Inventories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Products_Inventory");
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("NCTServices.Domain.Entity.OrderDetails", b =>
                 {
                     b.HasOne("NCTServices.Domain.Entity.Orders", "Order")
@@ -258,6 +361,17 @@ namespace NCTServices.Infrastructure.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("NCTServices.Domain.Entity.Payment", b =>
+                {
+                    b.HasOne("NCTServices.Domain.Entity.Orders", "Order")
+                        .WithMany("Payments")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("NCTServices.Domain.Entity.Products", b =>
                 {
                     b.HasOne("NCTServices.Domain.Entity.Categories", "Categories")
@@ -278,10 +392,14 @@ namespace NCTServices.Infrastructure.Migrations
             modelBuilder.Entity("NCTServices.Domain.Entity.Orders", b =>
                 {
                     b.Navigation("OrderDetail");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("NCTServices.Domain.Entity.Products", b =>
                 {
+                    b.Navigation("Inventories");
+
                     b.Navigation("OrderDetail");
                 });
 

@@ -11,15 +11,21 @@ namespace NCTServices.Domain.Entity
     public class Products : BaseEntity
     {
         [MaxLength(50)]
-        public string? ProductName { get; set; }
-        [MaxLength(500)]
-        public string? ProductDescription { get; set; }
-        public decimal? ProductPrice { get; set; }  
-        public int QuantityInStock { get; set; }
-
+        public string ProductName { get; set; } = string.Empty;
+        public string? Brand { get; set; }
+        public decimal Volume { get; set; }
+        public string? Color { get; set; }
+        public decimal Price { get; set; }
+        public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
+        public int StockQuantity { get; set; }
         public int CategoryID { get; set; }
+
+
+        //Navigation properties
         public Categories? Categories { get; set; }
         public virtual ICollection<OrderDetails> OrderDetail { get; set; } = new List<OrderDetails>();
+        public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
 
     }
 }

@@ -14,6 +14,9 @@ namespace NCTServices.Domain.Entity
         public string? CategoryName { get; set; }
         [MaxLength(500)]
         public string? CategoryDescription { get; set;}
+
+
+        //navigation properties
         public virtual ICollection<Products> Products { get; set; } = new List<Products>();
     }
 }

@@ -22,6 +22,8 @@ namespace NCTServices.Domain.Entity
         public string? Address { get; set; }
         [MaxLength(10)]
         public string? PhoneNumber { get; set; }
+
+        //navigation properties
         public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
 
     }

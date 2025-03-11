@@ -13,7 +13,12 @@ namespace NCTServices.Domain.Entity
         public DateTime OrderDate { get; set; }
         public string? Status { get; set; }
         public decimal? TotalAmount { get; set; }
+        public string? ShippingAddress { get; set; }
+
+
+        //navigation properties
         public Users? Users { get; set; }
         public virtual ICollection<OrderDetails> OrderDetail { get; set; } = new List<OrderDetails>();
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

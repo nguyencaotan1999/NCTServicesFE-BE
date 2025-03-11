@@ -41,9 +41,9 @@ namespace NCTServices.Application.Common.Services.Product.Queries
                 { 
                     productResponses.RowId = response.RowId;
                     productResponses.ProductName = response.ProductName;
-                    productResponses.ProductDescription = response.ProductDescription;
-                    productResponses.ProductPrice = response.ProductPrice;
-                    productResponses.QuantityInStock = response.QuantityInStock;
+                    productResponses.ProductDescription = response.Description;
+                    productResponses.ProductPrice = response.Price;
+                    productResponses.QuantityInStock = response.StockQuantity;
                     productResponses.CreatedDate = response.CreatedDate;
                     productResponses.ModifiedDate = response.ModifiedDate;
                 }

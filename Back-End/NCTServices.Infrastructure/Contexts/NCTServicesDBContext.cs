@@ -21,6 +21,7 @@ namespace NCTServices.Infrastructure.Contexts
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Inventory> inventories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes()
@@ -59,6 +60,13 @@ namespace NCTServices.Infrastructure.Contexts
                     .HasForeignKey(d => d.CategoryID)
                     .HasConstraintName("FK_Categories_Products");
             });
+            modelBuilder.Entity<Inventory>(entity =>
+            {
+                entity.ToTable("Inventory");
+                entity.HasOne(d => d.Products).WithMany(p => p.Inventories)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Products_Inventory");
+            });
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.ToTable("User");
@@ -81,11 +89,12 @@ namespace NCTServices.Infrastructure.Contexts
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Inventory> inventories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+               .SelectMany(t => t.GetProperties())
+               .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             {
                 property.SetColumnType("decimal(18,2)");
             }
@@ -94,7 +103,6 @@ namespace NCTServices.Infrastructure.Contexts
             {
                 entity.ToTable("Categorie");
             });
-
             modelBuilder.Entity<OrderDetails>(entity =>
             {
                 entity.ToTable("OrderDetail");
@@ -117,8 +125,15 @@ namespace NCTServices.Infrastructure.Contexts
             {
                 entity.ToTable("Product");
                 entity.HasOne(d => d.Categories).WithMany(p => p.Products)
-                  .HasForeignKey(d => d.CategoryID)
-                  .HasConstraintName("FK_Categories_Products");
+                    .HasForeignKey(d => d.CategoryID)
+                    .HasConstraintName("FK_Categories_Products");
+            });
+            modelBuilder.Entity<Inventory>(entity =>
+            {
+                entity.ToTable("Inventory");
+                entity.HasOne(d => d.Products).WithMany(p => p.Inventories)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Categories_Products");
             });
             modelBuilder.Entity<Users>(entity =>
             {

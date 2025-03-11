@@ -14,6 +14,8 @@ namespace NCTServices.Domain.Entity
         public int Quantity { get; set; }
         public decimal? UnitPrice { get; set; }
         public decimal? Subtotal { get; set; }
+
+        // navigation properties
         public virtual Orders? Order { get; set; }
         public virtual Products? Product { get; set; }
     }
