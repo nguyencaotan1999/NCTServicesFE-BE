@@ -26,15 +26,18 @@ namespace NCTServices.Application.Common.Services.Product.Queries
     public class GetProductByIdHandler : IRequestHandler<GetProductById, Result<ProductResponses>>
     {
         private readonly IUnitOfWork unitOfWork;
-        public GetProductByIdHandler(IUnitOfWork unitOfWorks)
+        private readonly IApplicationWriteDbConnection _sqlDbConnection;
+        public GetProductByIdHandler(IUnitOfWork unitOfWorks, IApplicationWriteDbConnection sqlDbConnection)
         {
             unitOfWork = unitOfWorks;
+            _sqlDbConnection = sqlDbConnection;
         }
 
         public async Task<Result<ProductResponses>> Handle(GetProductById request, CancellationToken cancellationToken)
         {
             try
             {
+           
                 var response = await unitOfWork.Repository<Products>().Entities.Where(x => x.RowId == request.Id).FirstOrDefaultAsync();
                 ProductResponses productResponses = new ProductResponses();
                 if (response != null)

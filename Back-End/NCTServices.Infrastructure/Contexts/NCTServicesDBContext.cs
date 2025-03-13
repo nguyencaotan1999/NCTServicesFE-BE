@@ -1,11 +1,6 @@
 ﻿using EntityFrameworkCore.Triggers;
 using Microsoft.EntityFrameworkCore;
 using NCTServices.Domain.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NCTServices.Infrastructure.Contexts
 {
@@ -133,7 +128,7 @@ namespace NCTServices.Infrastructure.Contexts
                 entity.ToTable("Inventory");
                 entity.HasOne(d => d.Products).WithMany(p => p.Inventories)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Categories_Products");
+                    .HasConstraintName("FK_Products_Inventory");
             });
             modelBuilder.Entity<Users>(entity =>
             {
