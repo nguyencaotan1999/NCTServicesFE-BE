@@ -1,0 +1,6 @@
+@NCTServices.API.PPaintTruongTrinh_HostAddress = http://localhost:5282
+
+GET {{NCTServices.API.PPaintTruongTrinh_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

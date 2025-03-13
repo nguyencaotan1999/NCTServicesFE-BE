@@ -72,27 +72,21 @@ namespace NCTServices.API.Common.Extentions
         }
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            // Lấy chuỗi kết nối từ appsettings.json
-            var connectionString = configuration.GetConnectionString("DBConnection");
+            services.AddOptions<DatabaseConnectionConfiguration>().Bind(configuration.GetSection(StartupConstant.DBConnection))
+             .Validate(config =>
+             {
+                 config.DBConnection = configuration[StartupConstant.DBConnection];
+                 return true;
+             });
+            services.AddDbContext<NCTServicesDBReadContext>(options => options
+                    .UseSqlServer(configuration[StartupConstant.DBConnection]));
 
-            // Bind cấu hình DatabaseConnectionConfiguration nếu cần
-            services.AddOptions<DatabaseConnectionConfiguration>()
-                .Configure(config => config.DBConnection = connectionString)
-                .Validate(config => !string.IsNullOrEmpty(config.DBConnection), "DBConnection cannot be null or empty.");
+            services.AddDbContext<NCTServicesDBWriteContext>(options => options
+                    .UseSqlServer(configuration[StartupConstant.DBConnection]));
 
-            // Cấu hình DbContext cho Read
-            services.AddDbContext<NCTServicesDBReadContext>(options =>
-                options.UseSqlServer(connectionString));
-
-            // Cấu hình DbContext cho Write
-            services.AddDbContext<NCTServicesDBWriteContext>(options =>
-                options.UseSqlServer(connectionString));
-
-            // Đăng ký các dịch vụ scoped
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<NCTServicesDBReadContext>());
             services.AddScoped<IApplicationReadDbConnection, ApplicationReadDbConnection>();
             services.AddScoped<IApplicationWriteDbConnection, ApplicationWriteDbConnection>();
-
             return services;
         }
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
