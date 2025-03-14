@@ -7,6 +7,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
     { path: '' , component: HomeComponent},
@@ -17,5 +18,5 @@ export const routes: Routes = [
     { path: 'cart', component: CartComponent},
     { path: 'errorpage', component: ErrorPageComponent },
     { path: 'checkout', component: CheckoutComponent },
-
+    { path: 'admin', component: AdminComponent },
 ];

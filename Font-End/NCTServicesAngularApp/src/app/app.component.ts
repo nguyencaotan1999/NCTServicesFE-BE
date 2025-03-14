@@ -10,8 +10,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminComponent } from './components/admin/admin.component';
 import { DataServices } from './components/Common/Common.component';
-
 
 
 @Component({
@@ -19,7 +19,7 @@ import { DataServices } from './components/Common/Common.component';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HeaderComponent, FooterComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule,DataServices]
+    imports: [RouterOutlet, HeaderComponent, FooterComponent,AdminComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule,DataServices]
 })
 export class AppComponent {
   title = 'Duy Trường Paint';
