@@ -9,14 +9,15 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminComponent } from './components/admin/admin.component';
 
+
 export const routes: Routes = [
-    { path: '' , component: HomeComponent},
-    { path: 'about', component: AboutComponent},
-    { path: 'news', component: NewsComponent},
-    { path: 'contact', component: ContactComponent},
-    { path: 'products',component: ProductsComponent},
-    { path: 'cart', component: CartComponent},
-    { path: 'errorpage', component: ErrorPageComponent },
-    { path: 'checkout', component: CheckoutComponent },
-    { path: 'admin', component: AdminComponent },
+    { path: '' , component: HomeComponent, data: { showLayout: true }},
+    { path: 'about', component: AboutComponent, data: { showLayout: true }},
+    { path: 'news', component: NewsComponent, data: { showLayout: true }},
+    { path: 'contact', component: ContactComponent, data: { showLayout: true }},
+    { path: 'products',component: ProductsComponent, data: { showLayout: true }},
+    { path: 'cart', component: CartComponent, data: { showLayout: true }},
+    { path: 'errorpage', component: ErrorPageComponent , data: { showLayout: false }},
+    { path: 'checkout', component: CheckoutComponent, data: { showLayout: true } },
+    { path: 'admin', component: AdminComponent , data: { showLayout: false }},
 ];

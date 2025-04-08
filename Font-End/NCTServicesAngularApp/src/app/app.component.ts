@@ -12,6 +12,10 @@ import { AboutComponent } from './components/about/about.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './components/admin/admin.component';
 import { DataServices } from './components/Common/Common.component';
+import { CommonModule } from '@angular/common';
+import { OnInit  } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 
 @Component({
@@ -19,8 +23,25 @@ import { DataServices } from './components/Common/Common.component';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HeaderComponent, FooterComponent,AdminComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule,DataServices]
+    imports: [CommonModule,RouterOutlet, HeaderComponent, FooterComponent,AdminComponent, HomeComponent,ProductsComponent,NewsComponent,ContactComponent,CheckoutComponent,CartComponent,AboutComponent,FormsModule,ReactiveFormsModule,DataServices]
 })
-export class AppComponent {
+  
+export class AppComponent implements OnInit {
+  showLayout = true;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => this.activatedRoute.root)
+      )
+      .subscribe(route => {
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        this.showLayout = route.snapshot.data['showLayout'] !== false;
+      });
+  }
   title = 'Duy Trường Paint';
 }
