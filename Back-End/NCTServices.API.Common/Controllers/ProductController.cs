@@ -2,12 +2,20 @@
 using NCTServices.Application.Common.Services.Product.Commands;
 using NCTServices.Application.Common.Services.Product.Queries;
 using NCTServices.Model.Requests;
+using Microsoft.Extensions.Caching.Memory;
+using NCTServices.Model.Responses;
 
 
 namespace NCTServices.API.Common.Controllers
 {
     public class ProductController : BaseApiController<ProductController>
     {
+        private readonly IMemoryCache _cache;
+        public ProductController(IMemoryCache cache) 
+        {
+            _cache = cache;
+        }
+
 
         [HttpGet]
         [Route("ProductById")]
@@ -15,8 +23,21 @@ namespace NCTServices.API.Common.Controllers
         {
             try
             {
+                var GetValueCache = _cache.TryGetValue(Rowid, out ProductResponses? responses);
+                if (!GetValueCache)
+                {
+                    // Xử lý khi không tìm thấy trong cache
                     var listProducts = await _mediator.Send(new GetProductById(Rowid));
-                    return Ok(listProducts);
+
+                    var cacheEntryOptions = new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60)
+                    };
+                    _cache.Set(Rowid, listProducts, cacheEntryOptions);
+                    return Ok(listProducts); 
+                }
+                    return Ok(GetValueCache);
+                    
             }
             catch (Exception)
             {

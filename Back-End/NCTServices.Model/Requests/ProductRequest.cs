@@ -12,6 +12,7 @@ namespace NCTServices.Model.Requests
         public string? ProductName { get; set; }
         public string? ProductDescription { get; set; }
         public double? Price { get; set; }
+        public byte[]? Image { get; set; }
         public int? QuantityInStock { get; set; }
 
     }

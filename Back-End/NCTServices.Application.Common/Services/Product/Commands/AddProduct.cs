@@ -40,6 +40,7 @@ namespace NCTServices.Application.Common.Services.Product.Commands
                 parameters.Add("QuantityInStock", request.product.QuantityInStock);
                 parameters.Add("ModifyDate", DateTime.Now);
                 parameters.Add("CreateDate", DateTime.Now);
+                parameters.Add("Image", request.product.Image);
 
                 var AddNewProduct = await _sqlDbConnection.QueryAsync<bool>(SQLConstant.Add_PRODUCT, CommandType.Text, parameters);
                 return await Result<bool>.SuccessAsync(AddNewProduct);

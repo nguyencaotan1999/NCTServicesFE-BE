@@ -49,6 +49,7 @@ namespace NCTServices.Application.Common.Services.Product.Queries
                     productResponses.QuantityInStock = response.StockQuantity;
                     productResponses.CreatedDate = response.CreatedDate;
                     productResponses.ModifiedDate = response.ModifiedDate;
+                    productResponses.Image = response.Image;
                 }
                 return await Result<ProductResponses>.SuccessAsync(productResponses);
             }

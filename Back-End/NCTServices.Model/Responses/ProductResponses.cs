@@ -13,6 +13,7 @@ namespace NCTServices.Model.Responses
         public string? ProductDescription { get; set;}
         public decimal? ProductPrice { get; set; }
         public int QuantityInStock { get; set; }
+        public byte[]? Image { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime CreatedDate { get; set; }
     }
