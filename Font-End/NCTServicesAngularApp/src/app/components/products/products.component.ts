@@ -14,12 +14,55 @@ import { DataServices } from '../Common/Common.component';
   
   
 export class ProductsComponent implements OnInit {
-  products: any[] = [];
+ // products: any[] = [];
   cartItems: any[] = [];
   loading: boolean = false;
   currentPage: number = 1;
   totalPages: number = 3;
   pageArray: number[] = [];
+
+  products: any[] = [
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "fsdfsdf",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    },
+    {
+      productName: "ABC",
+      productDescriptionn: "ABC",
+      productPrice: 10,
+    }
+  ]
 
   constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) {
     this.reload();

@@ -15,3 +15,32 @@
   overflow: hidden; /* Hide the content that overflows */
   text-overflow: ellipsis; 
 }
+
+.search-button{
+  display: flex;
+  align-items: center;
+  background-color: #007BFF;
+  padding-left: 23px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 40px;
+  width: 60px;
+}
+.search-button i {
+  margin-right: 5px;
+}
+.SearchInput{
+  padding: 0px;
+  border-radius: 10px;
+  border: solid black 1px;
+}
+.dropdown-format li {
+  margin: 5px;
+  text-align: center;
+}
+
+
+
+  
