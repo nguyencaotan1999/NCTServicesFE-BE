@@ -8,3 +8,13 @@
     transition: opacity 0.5s;
     opacity: 1;
 }
+
+.counter{
+    font-size: 10px;
+    border-radius: 20%;
+    opacity: 1;
+    color: #F28123;
+}
+.shoppingcart{
+    opacity: 0.9;
+}
