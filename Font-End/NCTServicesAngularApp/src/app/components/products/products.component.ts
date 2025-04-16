@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef, viewChild  } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, viewChild, AfterViewInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DataServices } from '../Common/Common.component';
@@ -13,15 +13,15 @@ import { DataServices } from '../Common/Common.component';
 })
   
   
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements AfterViewInit {
  // products: any[] = [];
   cartItems: any[] = [];
   loading: boolean = false;
   currentPage: number = 1;
   totalPages: number = 3;
   pageArray: number[] = [];
-
-  products: any[] = [
+  products: any[] = [];
+  productstemp: any[] = [
     {
       productName: "ABC",
       productDescriptionn: "ABC",
@@ -67,10 +67,15 @@ export class ProductsComponent implements OnInit {
   constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) {
     this.reload();
    }
-  
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.GetProducts(0);
   }
+  
+  ngOnInit(): void {
+    //this.GetProducts(0);
+    
+  }
+  
   
   reload() { 
     this.pageArray = new Array(this.totalPages).fill(0).map((x, i) => i + 1);
@@ -111,7 +116,7 @@ export class ProductsComponent implements OnInit {
     this.loading = true;
     const apiUrl = 'https://localhost:7071/api/v1/Product?skip=' + value;
 
-    this.dataServices.getData(`${apiUrl}`).subscribe(
+     this.dataServices.getData(`${apiUrl}`).subscribe(
         (data: any[]) => {
           this.products = data;
           console.log("data", this.products);

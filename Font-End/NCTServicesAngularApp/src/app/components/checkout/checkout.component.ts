@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DataServices } from '../Common/Common.component';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [DataServices,CommonModule,HttpClientModule,FormsModule],
+  imports: [DataServices,CommonModule,FormsModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
@@ -16,9 +15,7 @@ export class CheckoutComponent implements OnInit {
   total: number = 0;
   FeeShipping: number = 45000;
 
-  constructor(private dataServices: DataServices) { 
-   
-  }
+  constructor(private dataServices: DataServices) {}
 
   ngOnInit(): void {
     this.RenderCheckoutTable();

@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Observable,of  } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import { catchError, map } from 'rxjs/operators';
 @Component({
     selector: 'app-commmon',
     standalone: true,
-    imports: [CommonModule, HttpClientModule],
+    imports: [CommonModule],
     templateUrl: './Common.component.html',
     styleUrl: './Common.component.css'
 })

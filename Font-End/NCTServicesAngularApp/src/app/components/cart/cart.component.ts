@@ -10,7 +10,7 @@ import { ToastMessageComponent } from '../../services/toast/toast-message/toast-
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule, DataServices ],
+  imports: [CommonModule, FormsModule, DataServices ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
   providers: [ToastMessageComponent]
