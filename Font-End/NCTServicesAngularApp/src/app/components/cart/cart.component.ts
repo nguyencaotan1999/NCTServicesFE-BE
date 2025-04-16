@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit,ViewChildren,QueryList,AfterViewInit,ElementRef,Renderer2 } from '@angular/core';
 import { DataServices } from '../Common/Common.component';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastMessageComponent } from '../../services/toast/toast-message/toast-message.component';
 
@@ -10,7 +9,7 @@ import { ToastMessageComponent } from '../../services/toast/toast-message/toast-
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, DataServices ],
+  imports: [CommonModule, FormsModule ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
   providers: [ToastMessageComponent]

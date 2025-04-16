@@ -3,6 +3,8 @@ import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 import { provideHttpClient } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
+import { CartServiceService } from './services/cartcounter/cart-service.service';
 
 
 const serverConfig: ApplicationConfig = {
@@ -11,6 +13,7 @@ const serverConfig: ApplicationConfig = {
     provideServerRendering(),
     provideHttpClient(),
     provideToastr(),
+    CookieService,CartServiceService
   ]
 };
 

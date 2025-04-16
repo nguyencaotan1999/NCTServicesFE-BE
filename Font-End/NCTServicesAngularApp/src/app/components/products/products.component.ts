@@ -2,19 +2,22 @@ import { Component, OnInit,ChangeDetectorRef, viewChild, AfterViewInit  } from '
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DataServices } from '../Common/Common.component';
-
+import { HeaderComponent } from '../header/header.component';
+import { CartServiceService } from '../../services/cartcounter/cart-service.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrl: './products.component.css',
+  providers: [HeaderComponent]
 })
   
   
 export class ProductsComponent implements AfterViewInit {
- // products: any[] = [];
+  // products: any[] = [];
+  
   cartItems: any[] = [];
   loading: boolean = false;
   currentPage: number = 1;
@@ -64,18 +67,22 @@ export class ProductsComponent implements AfterViewInit {
     }
   ]
 
-  constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef) {
+  constructor(private dataServices: DataServices, private cartService: CartServiceService , private cdr: ChangeDetectorRef) {
     this.reload();
-   }
+  }
   ngAfterViewInit(): void {
-    this.GetProducts(0);
+    // logic
   }
   
   ngOnInit(): void {
-    //this.GetProducts(0);
+    this.GetProducts(0);
     
   }
   
+  addProduct() {
+    this.cartService.addToCart(); // Gọi hàm để tăng số lượng trong giỏ hàng
+  }
+
   
   reload() { 
     this.pageArray = new Array(this.totalPages).fill(0).map((x, i) => i + 1);
@@ -96,12 +103,14 @@ export class ProductsComponent implements AfterViewInit {
       this.reload();
     }
     this.renderProducts(this.currentPage);
+    
   }
 
   AddToCart(product: any) { 
-    this.cartItems.push(product);
-    console.log("Sản Phẩm:", this.cartItems);
-    this.cartItems = [];
+    // this.cartItems.push(product);
+    // console.log("Sản Phẩm:", this.cartItems);
+    // this.cartItems = [];
+    this.addProduct();
   }
   renderProducts(value: number) { 
     let skipProduct = 0;
@@ -120,11 +129,12 @@ export class ProductsComponent implements AfterViewInit {
         (data: any[]) => {
           this.products = data;
           console.log("data", this.products);
-          this.cdr.detectChanges(); 
-          this.loading = false;
+         this.loading = false;
+         this.cdr.detectChanges(); 
         },
         (error) => {
           this.loading = false;
+          this.cdr.detectChanges(); 
       }
       );
     // this.http.get<any[]>(apiUrl, httpOptions).subscribe(
