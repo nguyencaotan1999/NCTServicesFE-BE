@@ -63,7 +63,7 @@ namespace NCTServices.Shared.Constants
                                                 VALUES (@UserId,@OrderDate,@Status,@TotalAmount,@ModifiedDate,@ModifiedBy,@CreatedDate,@CreatedBy)";
         public const string GET_ALL_ORDER_BY_USER = @"SELECT    OD.RowId AS OrderDetailId,
                                                                 P.ProductName AS ProductName,
-	                                                            P.ProductPrice AS ProductPrice,
+	                                                            P.Price AS ProductPrice,
 		                                                        OD.Quantity AS Quantity,
 	                                                            O.Status AS STATUS,
 	                                                            O.OrderDate AS OrderDate,
@@ -99,6 +99,30 @@ namespace NCTServices.Shared.Constants
 
         public const string Register_Account = @"INSERT INTO [User] (UserName,UserEmail,UserPassword,CreatedDate,ModifiedDate)
                                                 VALUES(@name,@email,@password,@CreatedDate,@ModifiedDate)";
+        #endregion
+
+        #region Admin
+        public const string AddProductByAdmin = @"insert into Product values (@ProductName,@Brand,@Volume,@Color,@Price
+                                    ,@Description,@Image,@StockQuantity,@CategoryID,@CreatedBy,@CreatedDate,@ModifiedBy,@ModifiedDate)";
+
+        public const string UpdateProductByAdmin = @"Update Product 
+                                                    Set ProductName = @ProductName,
+                                                        Brand = @Brand,
+                                                        Volume = @Volume,
+                                                        Color = @Color,
+                                                        Price = @Price,
+                                                        Description = @Description,
+                                                        Image = @Image,
+                                                        StockQuantity = @StockQuantity,
+                                                        CategoryID = @CategoryID,
+                                                        CreatedBy = @CreatedBy,
+                                                        CreatedDate = @CreatedDate,
+                                                        ModifiedBy = @ModifiedBy,
+                                                        ModifiedDate = @ModifiedDate
+                                                    Where Rowid = @Rowid";
+        public const string DeleteProductByAdmin = @"Delete From Product
+                                                     Where Rowid = @Rowid";
+
         #endregion
 
     }

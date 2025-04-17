@@ -4,6 +4,7 @@ using NCTServices.Application.Common.Services.Product.Queries;
 using NCTServices.Model.Requests;
 using Microsoft.Extensions.Caching.Memory;
 using NCTServices.Model.Responses;
+using NCTServices.Application.Common.Services.Admin.Product;
 
 
 namespace NCTServices.API.Common.Controllers
@@ -110,6 +111,61 @@ namespace NCTServices.API.Common.Controllers
             catch (Exception)
             {
                 return BadRequest();            }
+
+        }
+        [HttpPost]
+        [Route("Admin/Product")]
+        public async Task<IActionResult> AddProductbyAdmin([FromBody] ProductRequest Product )
+        {
+            try
+            {
+                if (Product != null)
+                {
+                    var listProducts = await _mediator.Send(new AddProductByAdmin(Product));
+                    return Ok(listProducts);
+                }
+                return BadRequest("Product is not null");
+               
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        }
+        [HttpPut]
+        [Route("Admin/Product")]
+        public async Task<IActionResult> UpdateProductbyAdmin([FromBody] ProductRequest Product)
+        {
+            try
+            {
+                if (Product != null)
+                {
+                    var listProducts = await _mediator.Send(new UpdateProductByAdmin(Product));
+                    return Ok(listProducts);
+                }
+                return BadRequest("Product is not null");
+
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        }
+        [HttpDelete]
+        [Route("Admin/Product")]
+        public async Task<IActionResult> DeleteProductbyAdmin([FromBody] int Rowid)
+        {
+            try
+            {
+                    var listProducts = await _mediator.Send(new DeleteProductByAdmin(Rowid));
+                    return Ok(listProducts);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
 
         }
     }

@@ -26,7 +26,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   subtotal: number = 0;
   DeleteorderDetailName: string = '';
   OrderDetailId: number = 0;
-  IsLoading: boolean = true;
+  IsLoading: boolean = false;
 
   constructor(private dataServices: DataServices, private cdr: ChangeDetectorRef,private toast:ToastMessageComponent ) { 
     
