@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NCTServices.API.Common.Models;
+using NCTServices.Application.Common.Services.Admin.Order.Commands;
 using NCTServices.Application.Common.Services.CheckOut.Queries;
 using NCTServices.Application.Common.Services.Order.Queries;
 using NCTServices.Application.Common.Services.OrderDetail.Commands;
@@ -69,6 +71,56 @@ namespace NCTServices.API.Common.Controllers
             try
             {
                 var listorders = await _mediator.Send(new GetAllOrder(id));
+                return Ok(listorders.Data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        // UnComplete. need to check logic detail
+        [HttpPost]
+        [Route("Order")]
+        public async Task<IActionResult> CreateOrderByAdmin()
+        {
+            try
+            {
+                var listorders = await _mediator.Send(new CreateOrderByAdmin());
+                return Ok(listorders.Data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        // UnComplete. need to check logic detail
+        [HttpPut]
+        [Route("Order")]
+        public async Task<IActionResult> UpdateOrderByAdmin([FromBody] OrderRequestByAdmin request  )
+        {
+            try
+            {
+                var UpdateOrder = new OrderRequest();
+
+                UpdateOrder.Status = request.Status;
+                var listorders = await _mediator.Send(new UpdateOrderByAdmin(UpdateOrder));
+                return Ok(listorders.Data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        // UnComplete. need to check logic detail
+        [HttpDelete]
+        [Route("Order")]
+        public async Task<IActionResult> DeleteOrderByAdmin(int OrderID)
+        {
+            try
+            {
+
+                var listorders = await _mediator.Send(new DeleteOrderByAdmin(OrderID));
                 return Ok(listorders.Data);
             }
             catch (Exception ex)

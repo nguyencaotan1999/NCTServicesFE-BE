@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\Admin\Order\Queries\" />
     <Folder Include="Services\CheckOut\Command\" />
     <Folder Include="Services\Order\Commands\" />
   </ItemGroup>

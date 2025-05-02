@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NCTServices.Application.Common\NCTServices.Application.Common.csproj" />
     <ProjectReference Include="..\NCTServices.Infrastructure.Shared\NCTServices.Infrastructure.Shared.csproj" />
     <ProjectReference Include="..\NCTServices.Infrastructure\NCTServices.Infrastructure.csproj" />
