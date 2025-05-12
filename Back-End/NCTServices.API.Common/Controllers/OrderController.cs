@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NCTServices.API.Common.Models;
 using NCTServices.Application.Common.Services.Admin.Order.Commands;
 using NCTServices.Application.Common.Services.CheckOut.Queries;
 using NCTServices.Application.Common.Services.Order.Queries;
 using NCTServices.Application.Common.Services.OrderDetail.Commands;
 using NCTServices.Application.Common.Services.OrderDetail.Queries;
-using NCTServices.Domain.Entity;
 using NCTServices.Model.Requests;
-using System.ComponentModel;
 
 namespace NCTServices.API.Common.Controllers
 {
